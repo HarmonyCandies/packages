@@ -39,7 +39,7 @@ jobs:
         uses: AmosHuKe/ohpm-dashboard@main
         with:
           github_token: ${{ secrets.GH_TOKEN }}
-          github_repo: "https://github.com/fluttercandies/packages"
+          github_repo: "https://github.com/HarmonyCandies/packages"
           filename: ${{ matrix.filename }}
           publisher_list: "6542179b6dad4e55f6635764"
           package_list: ""
@@ -71,7 +71,7 @@ jobs:
         uses: AmosHuKe/pub-dashboard@main
         with:
           github_token: ${{ secrets.GH_TOKEN }}
-          github_repo: "https://github.com/fluttercandies/packages"
+          github_repo: "https://github.com/HarmonyCandies/packages"
           filename: ${{ matrix.filename }}
           publisher_list: "harmonycandies.com"
           package_list: ""
