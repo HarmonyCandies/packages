@@ -1,0 +1,47 @@
+name: pub-dashboard
+
+on:
+  schedule:
+    # Runs every 5 hours
+    - cron: "0 0/5 * * *"
+  push:
+    branches: [ "main" ]
+    paths:
+      - '.github/workflows/pub-dashboard.yml'
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - '.github/workflows/pub-dashboard.yml'
+  workflow_dispatch:
+
+jobs:
+  pub-dashboard-job:
+    strategy:
+      max-parallel: 1
+      matrix:
+        include:
+          - filename: 'README.md'
+            sort_field: 'published'
+            sort_mode: 'asc'
+          - filename: 'pub_packages/sort_by_pubLikes.md'
+            sort_field: 'pubLikes'
+            sort_mode: 'desc'
+          - filename: 'pub_packages/sort_by_pubDownloads.md'
+            sort_field: 'pubDownloads'
+            sort_mode: 'desc'
+          - filename: 'pub_packages/sort_by_githubStars.md'
+            sort_field: 'githubStars'
+            sort_mode: 'desc'
+    runs-on: ubuntu-latest
+    name: 'pub-dashboard :: ${{ matrix.filename }} :: ${{ matrix.sort_field }} :: ${{ matrix.sort_mode }}'
+    steps:
+      - name: run pub-dashboard
+        uses: AmosHuKe/pub-dashboard@main
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          github_repo: "https://github.com/fluttercandies/packages"
+          filename: ${{ matrix.filename }}
+          publisher_list: "harmonycandies.com"
+          package_list: ""
+          sort_field: ${{ matrix.sort_field }}
+          sort_mode: ${{ matrix.sort_mode }}
