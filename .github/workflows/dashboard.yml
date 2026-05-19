@@ -2,8 +2,8 @@ name: dashboard
 
 on:
   schedule:
-    # Runs every 5 hours
-    - cron: "0 0/5 * * *"
+    # Runs every 12 hours
+    - cron: "0 0/12 * * *"
   push:
     branches: [ "main" ]
     paths:
@@ -14,8 +14,12 @@ on:
       - '.github/workflows/dashboard.yml'
   workflow_dispatch:
 
+# Disable permissions for all of the available permissions
+permissions: {}
+
 jobs:
   ohpm-dashboard-job:
+    if: github.repository == 'HarmonyCandies/packages'
     strategy:
       max-parallel: 1
       matrix:
@@ -36,7 +40,7 @@ jobs:
     name: 'ohpm-dashboard :: ${{ matrix.filename }} :: ${{ matrix.sort_field }} :: ${{ matrix.sort_mode }}'
     steps:
       - name: run ohpm-dashboard
-        uses: AmosHuKe/ohpm-dashboard@main
+        uses: AmosHuKe/ohpm-dashboard@f74d925b8eff2b0c41d4f43daed2a0dc72c3067f
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           github_repo: "https://github.com/HarmonyCandies/packages"
@@ -47,6 +51,7 @@ jobs:
           sort_mode: ${{ matrix.sort_mode }}
 
   pub-dashboard-job:
+    if: github.repository == 'HarmonyCandies/packages'
     needs: ohpm-dashboard-job
     strategy:
       max-parallel: 1
@@ -68,7 +73,7 @@ jobs:
     name: 'pub-dashboard :: ${{ matrix.filename }} :: ${{ matrix.sort_field }} :: ${{ matrix.sort_mode }}'
     steps:
       - name: run pub-dashboard
-        uses: AmosHuKe/pub-dashboard@main
+        uses: AmosHuKe/pub-dashboard@f6296be2d1949a19fb6a2dbe8072421a6a03f2ed
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           github_repo: "https://github.com/HarmonyCandies/packages"
