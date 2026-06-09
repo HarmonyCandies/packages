@@ -8,10 +8,6 @@ on:
     branches: [ "main" ]
     paths:
       - '.github/workflows/dashboard.yml'
-  pull_request:
-    branches: [ "main" ]
-    paths:
-      - '.github/workflows/dashboard.yml'
   workflow_dispatch:
 
 # Disable permissions for all of the available permissions
