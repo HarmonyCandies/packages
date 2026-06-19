@@ -36,7 +36,7 @@ jobs:
     name: 'ohpm-dashboard :: ${{ matrix.filename }} :: ${{ matrix.sort_field }} :: ${{ matrix.sort_mode }}'
     steps:
       - name: run ohpm-dashboard
-        uses: AmosHuKe/ohpm-dashboard@035c880ceecbfc3e5ec446577c3efa819ed2e557
+        uses: AmosHuKe/ohpm-dashboard@7e4725bda485e6b3b717aadfb427fcbbc3071670 #v1.0.3
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           github_repo: "https://github.com/HarmonyCandies/packages"
